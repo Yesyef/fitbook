@@ -1,0 +1,109 @@
+<app-navbar></app-navbar>
+<hr>
+<div class="container emp-profile">
+    <form method="post">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-img">
+                    <img src="./assets/photo.jpg" width="150px" alt="" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="profile-head">
+                    <h5>
+                        {{profile?.username}}
+                    </h5>
+                    <br>
+
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                                aria-controls="home" aria-selected="true">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                                aria-controls="profile" aria-selected="false">Posts</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-work">
+                    <p></p>
+                    <div class="form-group blue-border">
+                        <label for="exampleFormControlTextarea4">Personal Description:</label>
+                        <textarea readonly class="form-control" id="exampleFormControlTextarea4"
+                            rows="3">{{profile?.personalDescription}}</textarea>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="tab-content profile-tab" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Type of Sport:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{profile?.sport}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Age</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{profile?.age}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Gender</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{profile?.gender}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Country</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{profile?.country}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>City</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{profile?.city}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div *ngIf="profile">
+                            <ul>
+                                <li *ngFor="let post of profile.listOfPosts">
+                                    Title: {{post.title}}
+                                    content: {{post.content}}
+                                </li>
+                            </ul>
+
+                        </div>
+                        <table *ngIf="profile">
+                            
+                            <tr *ngFor="let post of profile.listOfPosts;">
+                                <td>
+                                    <p> Title: {{post.title}}</p>
+                                    <p class="margin-left">content: {{post.content}}</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
