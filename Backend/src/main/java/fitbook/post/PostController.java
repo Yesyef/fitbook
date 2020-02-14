@@ -32,7 +32,8 @@ public class PostController {
 								@RequestParam(required = false) String category,
 								@RequestParam(required = false) String title,
 								@RequestParam(required = false) String content,
-								@RequestParam(required = false) Integer likes
+								@RequestParam(required = false) Integer likes,
+								@RequestParam(required = false) Long profileId
 								){
 		if (title != null) {
 			return postRepository.findByTitleContains(title);
@@ -42,6 +43,8 @@ public class PostController {
 			return postRepository.findByContentContains(content);
 		} else if (likes != null) {
 			return postRepository.findByLikes(likes);
+		} else if (profileId != null) {
+			return postRepository.findByProfileId(profileId);
 		}
 		return postRepository.findAll();
 	}

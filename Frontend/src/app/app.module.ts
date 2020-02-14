@@ -9,6 +9,7 @@ import { MainComponent } from './main/main.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ProfileComponent } from './profile/profile.component';
+import { PostsStartPageComponent } from './posts-start-page/posts-start-page.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ProfileComponent } from './profile/profile.component';
     MainComponent,
     RegistrationFormComponent,
     NavbarComponent,
-    ProfileComponent
+    ProfileComponent,
+    PostsStartPageComponent,
   ],
   imports: [
     BrowserModule,

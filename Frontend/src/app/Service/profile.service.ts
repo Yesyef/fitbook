@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Profile } from '../Model/profile';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { tap } from 'rxjs/operators'
 
 const baseUrl = 'http://localhost:8080/profiles'
 
@@ -9,6 +10,8 @@ const baseUrl = 'http://localhost:8080/profiles'
   providedIn: 'root'
 })
 export class ProfileService {
+
+  readonly change$ = new Subject<void>();
 
   username: string;
   sport: string;
@@ -46,15 +49,15 @@ export class ProfileService {
     return this.http.get<Profile>(baseUrl + "?city=" + city);
   }
 
-  public createProfile(profile: Profile): Observable<Profile> {
-    return this.http.post<Profile>(baseUrl, profile);
+  public createProfile(profile: Profile): Observable<void> {
+    return this.http.post<void>(baseUrl, profile).pipe(tap(() => this.change$.next()));
   }
 
   public updateProfileById(id: number, profile: Profile): Observable<void> {
-    return this.http.put<void>(baseUrl + '/' + id, profile);
+    return this.http.put<void>(baseUrl + '/' + id, profile).pipe(tap(() => this.change$.next()));
   }
 
   public deleteProfileById(id: number): Observable<void> {
-    return this.http.delete<void>(baseUrl + '/' + id);
+    return this.http.delete<void>(baseUrl + '/' + id).pipe(tap(() => this.change$.next()));
   }
 }

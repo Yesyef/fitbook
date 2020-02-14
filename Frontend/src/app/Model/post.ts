@@ -5,8 +5,8 @@ export interface Post {
     id?: number;
     title?: string;
     content?: string;
+    date?: string;
     likes?: number;
-    visibility?: boolean;
     category?: string;
     profile?: Profile;
     listOfComments?: string[];

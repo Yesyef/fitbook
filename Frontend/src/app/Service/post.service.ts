@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Post } from '../Model/post';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { tap } from 'rxjs/operators'
 
 const baseUrl = 'http://localhost:8080/posts'
 
@@ -9,6 +10,8 @@ const baseUrl = 'http://localhost:8080/posts'
   providedIn: 'root'
 })
 export class PostService {
+
+  readonly change$ = new Subject<void>();
 
   title: string;
   category: string;
@@ -23,6 +26,10 @@ export class PostService {
 
   public showPostById(id: number): Observable<Post>{
     return this.http.get<Post>(baseUrl + '/' + id);
+  }
+
+  public findPostsByProfileId(id: number): Observable<Post[]>{
+    return this.http.get<Post[]>(baseUrl + '?profileId=' + id);
   }
 
   public findPostByTitle(title): Observable<Post>{
@@ -45,12 +52,16 @@ export class PostService {
     return this.http.get<Post>(baseUrl + "?likes=" + likes);
   }
 
+  public createPost(post: Post): Observable<Post>{
+    return this.http.post<Post>(baseUrl, post).pipe(tap(() => this.change$.next()));
+  }
+
   public updatePostById(id: number, post: Post): Observable<void>{
-    return this.http.put<void>(baseUrl + '/' + id, post);
+    return this.http.put<void>(baseUrl + '/' + id, post).pipe(tap(() => this.change$.next()));
   }
 
   public deletePostById(id: number): Observable<void>{
-    return this.http.delete<void>(baseUrl + '/' + id);
+    return this.http.delete<void>(baseUrl + '/' + id).pipe(tap(() => this.change$.next()));
   }
 
 }

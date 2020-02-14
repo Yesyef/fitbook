@@ -39,9 +39,11 @@ public class Post {
 	@Size(min = 3)
 	private String content;
 	
-	private int likes = 0;
+	@NotBlank
+	@NotNull
+	private String date;
 	
-	private boolean visibility = false;
+	private int likes = 0;
 	
 	@NotBlank
 	@NotNull
