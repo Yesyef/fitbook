@@ -10,6 +10,9 @@ import { RegistrationFormComponent } from './registration-form/registration-form
 import { NavbarComponent } from './navbar/navbar.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PostsStartPageComponent } from './posts-start-page/posts-start-page.component';
+import { ProfileEditComponent } from './profile-edit/profile-edit.component';
+import { SearchBarComponent } from './search-bar/search-bar.component';
+import { ProfileListComponent } from './profile-list/profile-list.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +23,9 @@ import { PostsStartPageComponent } from './posts-start-page/posts-start-page.com
     NavbarComponent,
     ProfileComponent,
     PostsStartPageComponent,
+    ProfileEditComponent,
+    SearchBarComponent,
+    ProfileListComponent,
   ],
   imports: [
     BrowserModule,

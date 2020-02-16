@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PostService } from '../Service/post.service';
 import { Post } from '../Model/post';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -20,11 +21,13 @@ export class ProfileComponent implements OnInit {
   // formP: FormGroup;
   post: Post;
   postId: number;
+  enteredPassword: string;
 
 
   constructor(
     private profileService: ProfileService,
     private postService: PostService,
+    private router: Router,
     private fb: FormBuilder,
     private route: ActivatedRoute
   ) { }
@@ -39,10 +42,10 @@ export class ProfileComponent implements OnInit {
         .subscribe(postsFromBackend => this.listOfPosts = postsFromBackend)
     });
 
-  //   this.profileService.change$.subscribe(() => {
-  //    this.profileService.showProfileById(this.profileId)
-  //       .subscribe(profileFromBackend => this.profile = profileFromBackend)
-  //   });
+    this.profileService.change$.subscribe(() => {
+      this.profileService.showProfileById(this.profileId)
+        .subscribe(profileFromBackend => this.profile = profileFromBackend)
+    });
 
     this.form = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(25)]],
@@ -51,17 +54,6 @@ export class ProfileComponent implements OnInit {
       category: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(25)]],
     });
 
-    // this.formP = this.fb.group({
-    //   email: ['', [Validators.required, Validators.email]],
-    //   username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
-    //   age: ['', [Validators.required, Validators.min(18), Validators.max(99)]],
-    //   gender: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(15)]],
-    //   country: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(30)]],
-    //   city: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(30)]],
-    //   sport: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(30)]],
-    //   personalDescription: [''],
-    //   password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(30)]],
-    // });
 
   }
 
@@ -89,8 +81,9 @@ export class ProfileComponent implements OnInit {
         }
       }
       this.postService.createPost(post).subscribe();
+      this.router.navigate(["/posts"]);
     } else {
-      alert("Eingabe ungültig")
+      alert("Post is not valid")
     }
     this.form.reset();
   }
@@ -99,25 +92,13 @@ export class ProfileComponent implements OnInit {
     this.postService.deletePostById(postId).subscribe(() => this.loadPostsByProfileId(this.profileId));
   }
 
-  // editProfile(profileId) {
-  //   if (this.formP.valid) {
-  //     let profile: Profile = {
-  //       id: profileId,
-  //       email: this.form.value.email,
-  //       username: this.form.value.username,
-  //       age: this.form.value.age,
-  //       gender: this.form.value.gender,
-  //       country: this.form.value.country,
-  //       city: this.form.value.city,
-  //       sport: this.form.value.sport,
-  //       personalDescription: this.form.value.personalDescription,
-  //       password: this.form.value.password,
-  //     }
-  //     this.profileService.updateProfileById(profileId, profile).subscribe();
-  //   } else {
-  //     alert("Form unvalid");
-  //   } this.formP.reset();
-  // }
+
+  deleteProfile(profileId) {
+    this.profileService.deleteProfileById(profileId).subscribe();
+    this.router.navigate(["/profiles"]);
+
+  }
+
 
 }
 

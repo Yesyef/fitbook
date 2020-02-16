@@ -1,0 +1,18 @@
+<div class="input-group mb-3 margin">
+
+    <input type="text" class="form-control" placeholder="Enter username..." 
+    aria-label="Enter username" aria-describedby="button-citySearch" (focusin)="wantedProfile"
+    (keyup)="findProfile()" [(ngModel)]="wantedProfile">
+
+    <div class="input-group-append">
+      <button class="btn btn-outline-primary" type="button" [routerLink]="['/profiles']" [queryParams]="{id: wantedProfileId}">Search</button>
+    </div>
+  </div>
+
+<div >
+    <ul class="list-group hover-on-top">
+        <li class="list-group-item list-group-item-action" *ngFor="let profile of profilesSearchResult" >
+            <a (click)="fillAndFind(profile)"> {{profile.username}}</a>
+        </li>
+    </ul>
+</div>

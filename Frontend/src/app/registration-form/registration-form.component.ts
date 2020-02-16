@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Profile } from '../Model/profile';
 import { ProfileService } from '../Service/profile.service';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration-form',
@@ -17,6 +18,7 @@ export class RegistrationFormComponent implements OnInit {
 
   constructor(
               private profileService: ProfileService,
+              private router: Router,
               private location: Location,
               private fb: FormBuilder
               ) { }
@@ -59,6 +61,7 @@ this.loadAllProfiles();
       this.profileService.createProfile(profile).subscribe(createdProfile => {
         this.profiles.push(profile)
       });
+      this.router.navigate(["/posts"]);
     } else {
         alert("Form unvalid");
     }

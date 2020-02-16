@@ -1,0 +1,23 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col-sm-2 sidenav">
+            <h4>Profiles</h4>
+        </div>
+        <div class="col-sm-7">
+            <div class="col-sm-7" *ngFor="let profile of profiles">
+                <hr>
+                <h2>
+                    <a routerLink="/profiles/{{profile.id}}">{{profile.username}}</a>
+                </h2>
+                <h6><span class="glyphicon glyphicon-time"></span> Country: {{profile.country}} - Sport:
+                    {{profile.sport}}
+                    - Age:
+                    {{profile.age}}</h6>
+                <br><br>
+            </div>
+        </div>
+        <div class="col-sm-3">
+        </div>
+    </div>
+</div>

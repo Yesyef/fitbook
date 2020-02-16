@@ -18,6 +18,7 @@ export class ProfileService {
   country: string;
   city: string;
   age: number;
+  id: number;
 
   constructor(private http: HttpClient) { }
 
@@ -43,6 +44,10 @@ export class ProfileService {
 
   public findProfileByAge(age): Observable<Profile> {
     return this.http.get<Profile>(baseUrl + "?age=" + age);
+  }
+
+  public findProfileById(id): Observable<Profile> {
+    return this.http.get<Profile>(baseUrl + "?id=" + id);
   }
 
   public findProfileByCity(city): Observable<Profile> {

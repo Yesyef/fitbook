@@ -1,6 +1,7 @@
 package fitbook.profile;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -29,12 +30,13 @@ public class ProfileController {
 	
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	public List<Profile> showProfiles(
+	public Object showProfiles(
 			@RequestParam(required = false) String username,
 			@RequestParam(required = false) Integer age,
 			@RequestParam(required = false) String sport,
 			@RequestParam(required = false) String country,
-			@RequestParam(required = false) String city
+			@RequestParam(required = false) String city,
+			@RequestParam(required = false) Long id
 			){
 		if (username != null) {
 			return profileRepository.findByUsernameContains(username);	
@@ -46,6 +48,8 @@ public class ProfileController {
 			return profileRepository.findByCountry(country);	
 		} else if (city != null) {
 			return profileRepository.findByCity(city);	
+		} else if (id != null) {
+			return profileRepository.findById(id);	
 		}
 		return profileRepository.findAll();
 	}
